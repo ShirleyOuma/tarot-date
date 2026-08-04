@@ -55,3 +55,13 @@ export async function getDeckBySlug(slug) {
 
     return { ...deck, cards }
 }
+
+// Marks a deck as published, using its edit_token to prove ownership.
+export async function publishDeck(deckId, editToken) {
+    const { error } = await supabase.rpc('publish_deck', {
+        deck_id: deckId,
+        token: editToken,
+    })
+
+    if (error) throw error
+}
