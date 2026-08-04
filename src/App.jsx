@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { createDeck, getDeckBySlug } from './lib/decks'
 import { createCard } from './lib/cards'
+import { logRevealEvent, logReaction } from './lib/analytics'
 
 function App() {
   const [result, setResult] = useState(null)
@@ -52,6 +53,18 @@ function App() {
     }
   }
 
+  async function handleTestAnalytics() {
+    setError(null)
+    try {
+      await logRevealEvent({ cardId: '0f66d026-e4f0-45c8-9537-a825baa633cd', deckId: '4f80223e-007f-47aa-ad22-12880253c643' })
+      await logReaction({ cardId: '0f66d026-e4f0-45c8-9537-a825baa633cd', type: 'heart' })
+      setResult({ message: 'Both logged successfully — check Table Editor' })
+    } catch (err) {
+      setError(err.message)
+      console.error(err)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[#0B0A14] flex flex-col items-center justify-center gap-4 text-white">
       <h1 className="text-4xl font-bold text-amber-400">TarotDate</h1>
@@ -68,13 +81,19 @@ function App() {
         >
           Test Fetch Deck
         </button>
-        <button
-          onClick={handleTestCard}
-          className="px-6 py-3 bg-white/10 text-white rounded-lg font-semibold"
-        >
-          Test Create Card
-        </button>
       </div>
+      <button
+        onClick={handleTestCard}
+        className="px-6 py-3 bg-white/10 text-white rounded-lg font-semibold"
+      >
+        Test Create Card
+      </button>
+      <button
+        onClick={handleTestAnalytics}
+        className="px-6 py-3 bg-white/10 text-white rounded-lg font-semibold"
+      >
+        Test Analytics
+      </button>
       {result && (
         <pre className="text-xs bg-white/10 p-4 rounded max-w-xl overflow-auto">
           {JSON.stringify(result, null, 2)}
