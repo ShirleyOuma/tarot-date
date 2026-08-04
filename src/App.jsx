@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { createDeck } from './lib/decks'
+import { createDeck, getDeckBySlug } from './lib/decks'
 
 function App() {
   const [result, setResult] = useState(null)
@@ -21,15 +21,35 @@ function App() {
     }
   }
 
+  async function handleTestFetch() {
+    setError(null)
+    try {
+      const deck = await getDeckBySlug('22TlgdgmYf')
+      setResult(deck)
+      console.log('Fetched deck:', deck)
+    } catch (err) {
+      setError(err.message)
+      console.error(err)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[#0B0A14] flex flex-col items-center justify-center gap-4 text-white">
       <h1 className="text-4xl font-bold text-amber-400">TarotDate</h1>
-      <button
-        onClick={handleTestCreate}
-        className="px-6 py-3 bg-amber-400 text-black rounded-lg font-semibold"
-      >
-        Test Create Deck
-      </button>
+      <div className="flex gap-3">
+        <button
+          onClick={handleTestCreate}
+          className="px-6 py-3 bg-amber-400 text-black rounded-lg font-semibold"
+        >
+          Test Create Deck
+        </button>
+        <button
+          onClick={handleTestFetch}
+          className="px-6 py-3 bg-white/10 text-white rounded-lg font-semibold"
+        >
+          Test Fetch Deck
+        </button>
+      </div>
       {result && (
         <pre className="text-xs bg-white/10 p-4 rounded max-w-xl overflow-auto">
           {JSON.stringify(result, null, 2)}
