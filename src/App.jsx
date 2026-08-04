@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { createDeck, getDeckBySlug } from './lib/decks'
+import { createCard } from './lib/cards'
 
 function App() {
   const [result, setResult] = useState(null)
@@ -33,6 +34,24 @@ function App() {
     }
   }
 
+  async function handleTestCard() {
+    setError(null)
+    try {
+      const card = await createCard({
+        deckId: '4f80223e-007f-47aa-ad22-12880253c643',
+        position: 1,
+        name: 'The Wanderer',
+        quote: 'A journey begins with a single step.',
+        dateDescription: 'Coffee at that place you mentioned',
+      })
+      setResult(card)
+      console.log('Created card:', card)
+    } catch (err) {
+      setError(err.message)
+      console.error(err)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[#0B0A14] flex flex-col items-center justify-center gap-4 text-white">
       <h1 className="text-4xl font-bold text-amber-400">TarotDate</h1>
@@ -48,6 +67,12 @@ function App() {
           className="px-6 py-3 bg-white/10 text-white rounded-lg font-semibold"
         >
           Test Fetch Deck
+        </button>
+        <button
+          onClick={handleTestCard}
+          className="px-6 py-3 bg-white/10 text-white rounded-lg font-semibold"
+        >
+          Test Create Card
         </button>
       </div>
       {result && (
