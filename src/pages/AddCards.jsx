@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { createCard } from '../lib/cards'
+import ImageUploadField from '../components/ImageUploadField'
 
 function emptyCard() {
-    return { name: '', quote: '', dateDescription: '', location: '' }
+    return { name: '', quote: '', dateDescription: '', location: '', imageUrl: '', vibeUrl: '' }
 }
 
 function AddCards() {
@@ -29,6 +30,11 @@ function AddCards() {
 
     async function handleSubmit(e) {
         e.preventDefault()
+        const editToken = localStorage.getItem(`edit_token_${deckId}`)
+        if (!editToken) {
+            setError('No edit permission found for this deck in this browser.')
+            return
+        }
         const validCards = cards.filter((c) => c.name.trim())
         if (validCards.length === 0) {
             setError('Add at least one card with a name.')
@@ -42,11 +48,14 @@ function AddCards() {
                 const c = validCards[i]
                 await createCard({
                     deckId,
+                    editToken,
                     position: i + 1,
                     name: c.name,
                     quote: c.quote || null,
                     dateDescription: c.dateDescription || null,
                     location: c.location || null,
+                    imageUrl: c.imageUrl || null,
+                    vibeUrl: c.vibeUrl || null,
                 })
             }
             navigate(`/builder/${deckId}/done`)
@@ -86,18 +95,26 @@ function AddCards() {
                             placeholder="A short quote (optional)"
                             className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400"
                         />
-                        <input
-                            type="text"
+                        <textarea
                             value={card.dateDescription}
                             onChange={(e) => updateCard(index, 'dateDescription', e.target.value)}
-                            placeholder="The date idea (e.g. Coffee at that place you mentioned)"
-                            className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400"
+                            placeholder="The date idea (e.g. 7:00 PM: dinner at... 9:00 PM: walk along...)"
+                            className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+                            rows={3}
                         />
                         <input
                             type="text"
                             value={card.location}
                             onChange={(e) => updateCard(index, 'location', e.target.value)}
                             placeholder="Location (optional)"
+                            className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400"
+                        />
+                        <ImageUploadField value={card.imageUrl} onChange={(url) => updateCard(index, 'imageUrl', url)} />
+                        <input
+                            type="text"
+                            value={card.vibeUrl}
+                            onChange={(e) => updateCard(index, 'vibeUrl', e.target.value)}
+                            placeholder="Vibe song — paste a YouTube link (optional)"
                             className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400"
                         />
                     </div>

@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { publishDeck, getDeckBySlug } from '../lib/decks'
 import { supabase } from '../lib/supabaseClient'
 
 function BuilderDone() {
   const { deckId } = useParams()
-  const [status, setStatus] = useState('publishing') 
+  const [status, setStatus] = useState('publishing')
   const [slug, setSlug] = useState(null)
   const [error, setError] = useState(null)
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     async function run() {
@@ -66,11 +67,18 @@ function BuilderDone() {
         {shareUrl}
       </div>
       <button
-        onClick={() => navigator.clipboard.writeText(shareUrl)}
+        onClick={() => {
+          navigator.clipboard.writeText(shareUrl)
+          setCopied(true)
+          setTimeout(() => setCopied(false), 2000)
+        }}
         className="bg-amber-400 text-black rounded-lg px-6 py-2 font-semibold"
       >
-        Copy link
+        {copied ? 'Copied!' : 'Copy link'}
       </button>
+      <Link to={`/builder/${deckId}/edit`} className="text-white/50 hover:text-amber-400 text-sm underline">
+        Manage this deck
+      </Link>
     </div>
   )
 }

@@ -1,26 +1,46 @@
 import { supabase } from './supabaseClient'
 
-// Creates a new card belonging to a deck. Returns the new card row.
-export async function createCard({ deckId, position, name, imageUrl, altText, quote, dateTime, dateDescription, location, vibeUrl, unlockAt }) {
-    const newCard = {
-        id: crypto.randomUUID(),
+// Creates a new card under a deck. Requires the deck's edit_token to prove ownership.
+export async function createCard({ deckId, editToken, position, name, imageUrl, altText, quote, dateDescription, location, vibeUrl }) {
+    const { data, error } = await supabase.rpc('add_card', {
         deck_id: deckId,
-        position,
+        token: editToken,
+        card_position: position,
         name,
-        image_url: imageUrl ?? null,
-        alt_text: altText ?? null,
         quote: quote ?? null,
-        date_time: dateTime ?? null,
         date_description: dateDescription ?? null,
         location: location ?? null,
+        image_url: imageUrl ?? null,
+        alt_text: altText ?? null,
         vibe_url: vibeUrl ?? null,
-        unlock_at: unlockAt ?? null,
-    }
-
-    const { error } = await supabase
-        .from('cards')
-        .insert(newCard)
+    })
 
     if (error) throw error
-    return newCard
+    return data // the new card's id
+}
+
+// Deletes a card. Requires the parent deck's edit_token to prove ownership.
+export async function deleteCard(cardId, editToken) {
+    const { error } = await supabase.rpc('delete_card', {
+        card_id: cardId,
+        token: editToken,
+    })
+
+    if (error) throw error
+}
+
+// Updates an existing card's fields. Requires the parent deck's edit_token.
+export async function updateCard(cardId, editToken, fields) {
+    const { error } = await supabase.rpc('update_card', {
+        card_id: cardId,
+        token: editToken,
+        name: fields.name,
+        quote: fields.quote ?? null,
+        date_description: fields.dateDescription ?? null,
+        location: fields.location ?? null,
+        image_url: fields.imageUrl ?? null,
+        vibe_url: fields.vibeUrl ?? null,
+    })
+
+    if (error) throw error
 }

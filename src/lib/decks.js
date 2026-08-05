@@ -65,3 +65,14 @@ export async function publishDeck(deckId, editToken) {
 
     if (error) throw error
 }
+
+// Fetches a deck (draft or published) plus its cards, using edit_token to prove ownership.
+export async function getDeckForEdit(deckId, editToken) {
+  const { data, error } = await supabase.rpc('get_deck_for_edit', {
+    deck_id: deckId,
+    token: editToken,
+  })
+
+  if (error) throw error
+  return data
+}
