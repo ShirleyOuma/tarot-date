@@ -1,12 +1,17 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getDeckBySlug } from '../lib/decks'
+import { logRevealEvent } from '../lib/analytics'
+import TarotCard from '../components/TarotCard'
+import CardDetail from '../components/CardDetail'
 
 function DeckView() {
     const { slug } = useParams()
     const [deck, setDeck] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [selectedCard, setSelectedCard] = useState(null)
+    const [loggedCardIds, setLoggedCardIds] = useState(new Set())
 
     useEffect(() => {
         let cancelled = false
@@ -31,6 +36,17 @@ function DeckView() {
         }
     }, [slug])
 
+    function handleSelectCard(card) {
+        setSelectedCard(card)
+
+        if (!loggedCardIds.has(card.id)) {
+            setLoggedCardIds((prev) => new Set(prev).add(card.id))
+            logRevealEvent({ cardId: card.id, deckId: deck.id }).catch((err) => {
+                console.error('Failed to log reveal event:', err)
+            })
+        }
+    }
+
     if (loading) {
         return (
             <div className="min-h-screen bg-[#0B0A14] flex items-center justify-center text-white">
@@ -47,17 +63,18 @@ function DeckView() {
         )
     }
 
+    if (selectedCard) {
+        return <CardDetail card={selectedCard} onBack={() => setSelectedCard(null)} />
+    }
+
     return (
         <div className="min-h-screen bg-[#0B0A14] flex flex-col items-center justify-center text-white gap-4 p-8">
             <h1 className="text-4xl font-bold text-amber-400">{deck.title}</h1>
             {deck.intro_note && <p className="text-white/70 max-w-md text-center">{deck.intro_note}</p>}
             <p className="text-sm text-white/50">{deck.cards.length} card{deck.cards.length !== 1 ? 's' : ''}</p>
-            <div className="flex flex-wrap gap-4 justify-center mt-4">
+            <div className="flex flex-wrap gap-6 justify-center mt-4">
                 {deck.cards.map((card) => (
-                    <div key={card.id} className="bg-white/10 rounded-lg p-4 w-40">
-                        <p className="font-semibold">{card.name}</p>
-                        {card.date_description && <p className="text-xs text-white/60 mt-2">{card.date_description}</p>}
-                    </div>
+                    <TarotCard key={card.id} card={card} onSelect={handleSelectCard} />
                 ))}
             </div>
         </div>
