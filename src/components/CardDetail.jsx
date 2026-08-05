@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import VibePlayer from './VibePlayer'
+import ReactionButtons from './ReactionButtons'
 
 function CardDetail({ card, onBack }) {
     return (
@@ -54,6 +55,7 @@ function CardDetail({ card, onBack }) {
                     )}
 
                     {card.vibe_url && <VibePlayer url={card.vibe_url} />}
+                    <ReactionButtons cardId={card.id} />
                 </motion.div>
             </div>
         </div>
