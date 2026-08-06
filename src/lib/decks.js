@@ -1,4 +1,5 @@
 import { supabase } from './supabaseClient'
+import { generateUUID } from './uuid'
 
 // Generating a random, url=safe slug for new deck's public link
 function generateSlug(length = 10) {
@@ -12,13 +13,13 @@ function generateSlug(length = 10) {
 
 //Generating a random secret token, used to prove deck ownership without login
 function generateEditToken() {
-    return crypto.randomUUID()
+    return generateUUID()
 }
 
 // Creates a new draft deck. Returns the new deck row, including its edit_token.
 export async function createDeck({ title, introNote, theme }) {
     const newDeck = {
-        id: crypto.randomUUID(),
+        id: generateUUID(),
         slug: generateSlug(),
         edit_token: generateEditToken(),
         title,

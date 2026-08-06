@@ -36,8 +36,8 @@ function VibePlayer({ url }) {
         loadYouTubeAPI().then((YT) => {
             if (cancelled) return
             playerRef.current = new YT.Player(containerRef.current, {
-                height: '0',
-                width: '0',
+                height: '200',
+                width: '200',
                 videoId,
                 playerVars: { playsinline: 1 },
                 events: {
@@ -68,7 +68,7 @@ function VibePlayer({ url }) {
 
     return (
         <div className="flex items-center gap-3 bg-[#C9BEFF] font-extrabold border-white/10 rounded-[60%_40%_60%_40%/40%_60%_40%_60%] px-2 py-2 w-fit">
-            <div ref={containerRef} style={{ display: 'none' }} />
+            <div ref={containerRef} style={{ width: 1, height: 1, overflow: 'hidden', position: 'absolute' }} />
 
             <button
                 onClick={toggle}

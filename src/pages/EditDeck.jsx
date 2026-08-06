@@ -75,7 +75,10 @@ function EditDeck() {
         }
     }
 
-    async function handleDeleteCard(cardId) {
+    async function handleDeleteCard(cardId, cardName) {
+        const confirmed = window.confirm(`Delete "${cardName}"? This can't be undone.`)
+        if (!confirmed) return
+
         try {
             await deleteCard(cardId, editToken)
             await loadDeck(editToken)
@@ -208,7 +211,7 @@ function EditDeck() {
                                 <button onClick={() => startEditing(card)} className="text-amber-400 text-xs hover:text-amber-300">
                                     Edit
                                 </button>
-                                <button onClick={() => handleDeleteCard(card.id)} className="text-red-400 text-xs hover:text-red-300">
+                                <button onClick={() => handleDeleteCard(card.id, card.name)} className="text-red-400 text-xs hover:text-red-300">
                                     Delete
                                 </button>
                             </div>
@@ -223,7 +226,7 @@ function EditDeck() {
                 <input value={quote} onChange={(e) => setQuote(e.target.value)} placeholder="Quote (optional)" className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400" />
                 <textarea value={dateDescription} onChange={(e) => setDateDescription(e.target.value)} placeholder="The date idea" rows={3} className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
                 <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Location (optional)" className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400" />
-                <input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="Card image URL (optional)" className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400" />
+                <ImageUploadField value={imageUrl} onChange={setImageUrl} />
                 <input value={vibeUrl} onChange={(e) => setVibeUrl(e.target.value)} placeholder="Vibe song — YouTube link (optional)" className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400" />
                 <button type="submit" disabled={saving} className="bg-amber-400 text-black rounded-lg px-6 py-2 font-semibold disabled:opacity-50">
                     {saving ? 'Adding...' : 'Add card'}
