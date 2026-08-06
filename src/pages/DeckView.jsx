@@ -68,7 +68,7 @@ function DeckView() {
     }
 
     return (
-        <div className="min-h-screen bg-[#0B0A14] flex flex-col items-center justify-center text-white gap-4 p-8">
+        <div className="min-h-screen bg-[#000000] flex flex-col items-center justify-center text-white gap-4 p-8">
             <h1 className="text-4xl font-bold text-amber-400">{deck.title}</h1>
             {deck.intro_note && <p className="text-white/70 max-w-md text-center">{deck.intro_note}</p>}
             <p className="text-sm text-white/50">{deck.cards.length} card{deck.cards.length !== 1 ? 's' : ''}</p>

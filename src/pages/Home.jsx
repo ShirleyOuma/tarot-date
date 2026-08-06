@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 function Home() {
   return (
-    <div className="min-h-screen bg-[#0B0A14] flex flex-col items-center justify-center text-white text-center p-8 gap-6">
+    <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white text-center p-8 gap-6">
       <h1 className="text-6xl font-bold text-amber-400">TarotDate</h1>
       <p className="text-white/70 max-w-md" style={{ fontFamily: "'Caveat', cursive", fontSize: '1.5rem' }}>
         Build someone a deck of cards. Each one hides a little something for them.

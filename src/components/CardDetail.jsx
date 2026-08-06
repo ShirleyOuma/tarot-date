@@ -4,10 +4,10 @@ import ReactionButtons from './ReactionButtons'
 
 function CardDetail({ card, onBack }) {
     return (
-        <div className="min-h-screen bg-[#0B0A14] flex flex-col text-white p-8 gap-10">
+        <div className="min-h-screen bg-[#000000] flex flex-col text-white p-8 gap-10">
             <button
                 onClick={onBack}
-                className="self-start text-white/50 hover:text-amber-400 text-xs uppercase tracking-widest border border-white/20 rounded-full px-4 py-2 w-fit"
+                className="self-start text-white/50 hover:text-amber-400 text-xs uppercase font-serif tracking-widest px-4 py-2 w-fit"
             >
                 ← Return to deck
             </button>
@@ -47,9 +47,9 @@ function CardDetail({ card, onBack }) {
                     )}
 
                     {(card.date_description || card.location) && (
-                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-left">
-                            <p className="text-xs uppercase tracking-widest text-amber-400/80 mb-2">The Date Idea</p>
-                            {card.date_description && <p className="text-sm text-white/90">{card.date_description}</p>}
+                        <div className="bg-slate-950 border border-white/10 rounded-sm p-4 text-left">
+                            <p className="text-xs uppercase tracking-widest text-white font-bold mb-2">The Date Idea</p>
+                            {card.date_description && <p className="text-sm text-white/90 font-serif">{card.date_description}</p>}
                             {card.location && <p className="text-xs text-white/50 mt-1">{card.location}</p>}
                         </div>
                     )}

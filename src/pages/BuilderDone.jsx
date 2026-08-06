@@ -60,7 +60,7 @@ function BuilderDone() {
   const shareUrl = `${window.location.origin}/d/${slug}`
 
   return (
-    <div className="min-h-screen bg-[#0B0A14] flex flex-col items-center justify-center text-white gap-4 p-8">
+    <div className="min-h-screen bg-[#000000] flex flex-col items-center justify-center text-white gap-4 p-8">
       <h1 className="text-3xl font-bold text-amber-400">Your deck is live!</h1>
       <p className="text-white/70">Share this link:</p>
       <div className="bg-white/10 rounded-lg px-4 py-3 font-mono text-sm break-all max-w-md">
