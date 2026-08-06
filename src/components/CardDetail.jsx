@@ -48,9 +48,21 @@ function CardDetail({ card, onBack }) {
 
                     {(card.date_description || card.location) && (
                         <div className="bg-slate-950 border border-white/10 rounded-sm p-4 text-left">
-                            <p className="text-xs uppercase tracking-widest text-white font-bold mb-2">The Date Idea</p>
-                            {card.date_description && <p className="text-sm text-white/90 font-serif">{card.date_description}</p>}
-                            {card.location && <p className="text-xs text-white/50 mt-1">{card.location}</p>}
+                            <p className="text-xs uppercase tracking-widest text-white font-bold mb-2">
+                                The Date Idea
+                            </p>
+
+                            {card.date_description && (
+                                <p className="text-sm text-white/90 font-serif whitespace-pre-wrap">
+                                    {card.date_description}
+                                </p>
+                            )}
+
+                            {card.location && (
+                                <p className="text-xs text-white/50 mt-1">
+                                    {card.location}
+                                </p>
+                            )}
                         </div>
                     )}
 

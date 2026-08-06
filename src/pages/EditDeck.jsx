@@ -176,8 +176,8 @@ function EditDeck() {
                                 value={editForm.dateDescription}
                                 onChange={(e) => setEditForm((f) => ({ ...f, dateDescription: e.target.value }))}
                                 placeholder="The date idea"
-                                rows={3}
-                                className="bg-white/10 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+                                rows={6}
+                                className="bg-white/10 rounded-lg px-3 py-2 text-lg outline-none focus:ring-2 focus:ring-amber-400 resize-none"
                             />
                             <input
                                 value={editForm.location}
