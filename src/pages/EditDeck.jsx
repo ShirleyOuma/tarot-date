@@ -117,7 +117,7 @@ function EditDeck() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-[#0B0A14] flex items-center justify-center text-white">
+            <div className="min-h-screen bg-black flex items-center justify-center text-white">
                 <p>Loading...</p>
             </div>
         )
@@ -125,14 +125,14 @@ function EditDeck() {
 
     if (error) {
         return (
-            <div className="min-h-screen bg-[#0B0A14] flex items-center justify-center text-white">
+            <div className="min-h-screen bg-black flex items-center justify-center text-white">
                 <p className="text-red-400">{error}</p>
             </div>
         )
     }
 
     return (
-        <div className="min-h-screen bg-[#000000] text-white p-8 flex flex-col items-center gap-8">
+        <div className="min-h-screen bg-black text-white p-8 flex flex-col items-center gap-8">
             <div className="w-full max-w-lg flex items-center justify-between">
                 <h1 className="text-3xl font-bold text-amber-400">{deck.title}</h1>
                 <span className={`text-xs px-3 py-1 rounded-full ${deck.status === 'published' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/10 text-white/60'}`}>
