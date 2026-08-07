@@ -1,16 +1,36 @@
-# React + Vite
+# TarotDate
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Build someone a deck of tarot-style cards. Each card hides a date idea, a quote, a location, and a song — flip it open to reveal it. No login required, for either the creator or the recipient.
 
-Currently, two official plugins are available:
+**Live app:** https://tarot-date.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## How it works
 
-## React Compiler
+1. A creator visits the site, builds a deck (title + a set of cards, each with a name, quote, date idea, optional photo, and optional YouTube song link), and publishes it.
+2. They get a shareable link (`/d/some-slug`) and a private "manage" link to edit the deck later — both work without any account, tied instead to a secret token saved in their browser.
+3. Whoever opens the share link sees the deck as a grid of tarot-style cards. Tapping one reveals the details, plays the song, and lets them react with a heart or accept the date idea.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech stack
 
-## Expanding the Oxlint configuration
+React (Vite) + Tailwind CSS + Framer Motion, backed by Supabase (Postgres, Row-Level Security, Storage), deployed on Vercel.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Running it locally
+
+```bash
+npm install
+npm run dev
+```
+
+Requires a `.env.local` file (not committed) with:
+```
+VITE_SUPABASE_URL=your-supabase-project-url
+VITE_SUPABASE_ANON_KEY=your-publishable-key
+```
+
+## Deployment
+
+Hosted on Vercel, connected to the `main` branch — every push auto-deploys. Environment variables are set directly in Vercel's dashboard.
+
+---
+
+
