@@ -26,7 +26,7 @@ function CardDetail({ card, onBack }) {
                             <span className="text-5xl text-amber-300/70">✦</span>
                         )}
                     </div>
-                    <div className="bg-[#f5f0e6] text-[#0B0A14] text-center text-xs font-semibold uppercase tracking-wide py-2">
+                    <div className="bg-[#f5f0e6] text-[#0B0A14] text-center text-xs uppercase tracking-wide py-2" style={{ fontFamily: "'Griffy', system-ui" }}>
                         {card.name}
                     </div>
                 </motion.div>
