@@ -137,7 +137,7 @@ function EditDeck() {
     return (
         <div className="min-h-screen bg-black text-white p-8 flex flex-col items-center gap-8">
             <div className="w-full max-w-lg flex items-center justify-between">
-                <h1 className="text-3xl font-bold text-amber-400" style={{ fontFamily: "'Rubik Spray Paint', system-ui" }}>{deck.title}</h1>
+                <h1 className="text-3xl font-bold text-emerald-950" style={{ fontFamily: "'Sekuya', system-ui" }}>{deck.title}</h1>
                 <span className={`text-xs px-3 py-1 rounded-full ${deck.status === 'published' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/10 text-white/60'}`}>
                     {deck.status}
                 </span>
