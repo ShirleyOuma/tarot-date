@@ -11,7 +11,7 @@ function TarotCard({ card, onSelect }) {
           <span className="text-4xl text-amber-300/70">✦</span>
         )}
       </div>
-      <div className="bg-[#f5f0e6] text-[#0B0A14] text-center text-xs uppercase tracking-wide py-1 px-1" style={{ fontFamily: "'Griffy', system-ui" }}>
+      <div className="bg-[#f5f0e6] text-[#0B0A14] text-center text-sm uppercase tracking-wide py-1.5 px-1" style={{ fontFamily: "'Griffy', system-ui" }}>
         {card.name}
       </div>
     </div>
