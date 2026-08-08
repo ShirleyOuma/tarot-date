@@ -13,7 +13,7 @@ export async function createCard({ deckId, editToken, position, name, imageUrl, 
         image_url: imageUrl ?? null,
         alt_text: altText ?? null,
         vibe_url: vibeUrl ?? null,
-        unlock_at: unlockAt ?? null,
+        unlock_at: unlockAt ? new Date(unlockAt).toISOString() : null,
     })
 
     if (error) throw error
@@ -41,7 +41,7 @@ export async function updateCard(cardId, editToken, fields) {
         location: fields.location ?? null,
         image_url: fields.imageUrl ?? null,
         vibe_url: fields.vibeUrl ?? null,
-        unlock_at: fields.unlockAt ?? null,
+        unlock_at: fields.unlockAt ? new Date(fields.unlockAt).toISOString() : null,
     })
 
     if (error) throw error
