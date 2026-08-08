@@ -20,6 +20,7 @@ function EditDeck() {
     const [saving, setSaving] = useState(false)
     const [editingCardId, setEditingCardId] = useState(null)
     const [editForm, setEditForm] = useState({})
+    const [unlockAt, setUnlockAt] = useState('')
 
     async function loadDeck(token) {
         setLoading(true)
@@ -60,6 +61,7 @@ function EditDeck() {
                 location: location || null,
                 imageUrl: imageUrl || null,
                 vibeUrl: vibeUrl || null,
+                unlockAt: unlockAt || null,
             })
             setName('')
             setQuote('')
@@ -105,6 +107,7 @@ function EditDeck() {
             location: card.location || '',
             imageUrl: card.image_url || '',
             vibeUrl: card.vibe_url || '',
+            unlockAt: card.unlock_at ? card.unlock_at.slice(0, 16) : '',
         })
     }
 
@@ -195,6 +198,15 @@ function EditDeck() {
                                     placeholder="Vibe song — YouTube link"
                                     className="bg-black/70 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-400"
                                 />
+                                <label className="flex flex-col gap-1">
+                                    <span className="text-xs text-white/50">Lock this card until (optional)</span>
+                                    <input
+                                        type="datetime-local"
+                                        value={editForm.unlockAt}
+                                        onChange={(e) => setEditForm((f) => ({ ...f, unlockAt: e.target.value }))}
+                                        className="bg-black/70 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-400"
+                                    />
+                                </label>
                                 <div className="flex gap-2 mt-1">
                                     <button onClick={() => handleSaveEdit(card.id)} className="bg-amber-400 text-black rounded-lg px-4 py-2 text-sm font-semibold">
                                         Save
@@ -231,6 +243,15 @@ function EditDeck() {
                     <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Location (optional)" className="bg-black/70 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400" />
                     <ImageUploadField value={imageUrl} onChange={setImageUrl} />
                     <input value={vibeUrl} onChange={(e) => setVibeUrl(e.target.value)} placeholder="Vibe song — YouTube link (optional)" className="bg-black/70 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400" />
+                    <label className="flex flex-col gap-1">
+                        <span className="text-xs text-white/50">Lock this card until (optional)</span>
+                        <input
+                            type="datetime-local"
+                            value={unlockAt}
+                            onChange={(e) => setUnlockAt(e.target.value)}
+                            className="bg-black/70 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400"
+                        />
+                    </label>
                     <button type="submit" disabled={saving} className="bg-amber-400 text-black rounded-lg px-6 py-2 font-semibold disabled:opacity-50">
                         {saving ? 'Adding...' : 'Add card'}
                     </button>

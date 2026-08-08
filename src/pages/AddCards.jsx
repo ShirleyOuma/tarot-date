@@ -4,7 +4,7 @@ import { createCard } from '../lib/cards'
 import ImageUploadField from '../components/ImageUploadField'
 
 function emptyCard() {
-    return { name: '', quote: '', dateDescription: '', location: '', imageUrl: '', vibeUrl: '' }
+    return { name: '', quote: '', dateDescription: '', location: '', imageUrl: '', vibeUrl: '', unlockAt: '' }
 }
 
 function AddCards() {
@@ -56,6 +56,7 @@ function AddCards() {
                     location: c.location || null,
                     imageUrl: c.imageUrl || null,
                     vibeUrl: c.vibeUrl || null,
+                    unlockAt: c.unlockAt || null,
                 })
             }
             navigate(`/builder/${deckId}/done`)
@@ -117,6 +118,16 @@ function AddCards() {
                             placeholder="Vibe song — paste a YouTube link (optional)"
                             className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400"
                         />
+
+                        <label className="flex flex-col gap-1">
+                            <span className="text-xs text-white/50">Lock this card until (optional)</span>
+                            <input
+                                type="datetime-local"
+                                value={card.unlockAt}
+                                onChange={(e) => updateCard(index, 'unlockAt', e.target.value)}
+                                className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400"
+                            />
+                        </label>
                     </div>
                 ))}
 

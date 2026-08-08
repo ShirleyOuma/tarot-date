@@ -1,7 +1,7 @@
 import { supabase } from './supabaseClient'
 
 // Creates a new card under a deck. Requires the deck's edit_token to prove ownership.
-export async function createCard({ deckId, editToken, position, name, imageUrl, altText, quote, dateDescription, location, vibeUrl }) {
+export async function createCard({ deckId, editToken, position, name, imageUrl, altText, quote, dateDescription, location, vibeUrl, unlockAt }) {
     const { data, error } = await supabase.rpc('add_card', {
         deck_id: deckId,
         token: editToken,
@@ -13,6 +13,7 @@ export async function createCard({ deckId, editToken, position, name, imageUrl, 
         image_url: imageUrl ?? null,
         alt_text: altText ?? null,
         vibe_url: vibeUrl ?? null,
+        unlock_at: unlockAt ?? null,
     })
 
     if (error) throw error
@@ -40,6 +41,7 @@ export async function updateCard(cardId, editToken, fields) {
         location: fields.location ?? null,
         image_url: fields.imageUrl ?? null,
         vibe_url: fields.vibeUrl ?? null,
+        unlock_at: fields.unlockAt ?? null,
     })
 
     if (error) throw error
