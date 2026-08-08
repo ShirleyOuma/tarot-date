@@ -4,6 +4,7 @@ import { getDeckBySlug } from '../lib/decks'
 import { logRevealEvent } from '../lib/analytics'
 import TarotCard from '../components/TarotCard'
 import CardDetail from '../components/CardDetail'
+import { isLocked } from '../lib/locking'
 
 function DeckView() {
     const { slug } = useParams()
@@ -38,8 +39,7 @@ function DeckView() {
 
     function handleSelectCard(card) {
         setSelectedCard(card)
-
-        if (!loggedCardIds.has(card.id)) {
+        if (!isLocked(card) && !loggedCardIds.has(card.id)) {
             setLoggedCardIds((prev) => new Set(prev).add(card.id))
             logRevealEvent({ cardId: card.id, deckId: deck.id }).catch((err) => {
                 console.error('Failed to log reveal event:', err)
