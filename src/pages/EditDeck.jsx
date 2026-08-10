@@ -21,6 +21,7 @@ function EditDeck() {
     const [editingCardId, setEditingCardId] = useState(null)
     const [editForm, setEditForm] = useState({})
     const [unlockAt, setUnlockAt] = useState('')
+    const [altText, setAltText] = useState('')
 
     async function loadDeck(token) {
         setLoading(true)
@@ -62,6 +63,7 @@ function EditDeck() {
                 imageUrl: imageUrl || null,
                 vibeUrl: vibeUrl || null,
                 unlockAt: unlockAt || null,
+                altText: altText || null,
             })
             setName('')
             setQuote('')
@@ -69,6 +71,8 @@ function EditDeck() {
             setLocation('')
             setImageUrl('')
             setVibeUrl('')
+            setUnlockAt('')
+            setAltText('')
             await loadDeck(editToken)
         } catch (err) {
             setError(err.message)
@@ -108,6 +112,7 @@ function EditDeck() {
             imageUrl: card.image_url || '',
             vibeUrl: card.vibe_url || '',
             unlockAt: card.unlock_at ? card.unlock_at.slice(0, 16) : '',
+            altText: card.alt_text || '',
         })
     }
 
@@ -190,6 +195,12 @@ function EditDeck() {
                             />
                             <ImageUploadField value={editForm.imageUrl} onChange={(url) => setEditForm((f) => ({ ...f, imageUrl: url }))} />
                             <input
+                                value={editForm.altText}
+                                onChange={(e) => setEditForm((f) => ({ ...f, altText: e.target.value }))}
+                                placeholder="Image description, for accessibility (optional)"
+                                className="bg-black/70 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-400"
+                            />
+                            <input
                                 value={editForm.vibeUrl}
                                 onChange={(e) => setEditForm((f) => ({ ...f, vibeUrl: e.target.value }))}
                                 placeholder="Vibe song — YouTube link"
@@ -239,6 +250,7 @@ function EditDeck() {
                 <textarea value={dateDescription} onChange={(e) => setDateDescription(e.target.value)} placeholder="The date idea" rows={3} className="bg-black/70 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400 resize-none" />
                 <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Location (optional)" className="bg-black/70 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400" />
                 <ImageUploadField value={imageUrl} onChange={setImageUrl} />
+                <input value={altText} onChange={(e) => setAltText(e.target.value)} placeholder="Image description, for accessibility (optional)" className="bg-black/70 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400" />
                 <input value={vibeUrl} onChange={(e) => setVibeUrl(e.target.value)} placeholder="Vibe song — YouTube link (optional)" className="bg-black/70 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400" />
                 <label className="flex flex-col gap-1">
                     <span className="text-xs text-white/50">Lock this card until (optional)</span>

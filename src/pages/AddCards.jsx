@@ -4,7 +4,7 @@ import { createCard } from '../lib/cards'
 import ImageUploadField from '../components/ImageUploadField'
 
 function emptyCard() {
-    return { name: '', quote: '', dateDescription: '', location: '', imageUrl: '', vibeUrl: '', unlockAt: '' }
+    return { name: '', quote: '', dateDescription: '', location: '', imageUrl: '', vibeUrl: '', unlockAt: '', altText: '' }
 }
 
 function AddCards() {
@@ -57,6 +57,7 @@ function AddCards() {
                     imageUrl: c.imageUrl || null,
                     vibeUrl: c.vibeUrl || null,
                     unlockAt: c.unlockAt || null,
+                    altText: c.altText || null,
                 })
             }
             navigate(`/builder/${deckId}/done`)
@@ -111,6 +112,13 @@ function AddCards() {
                             className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400"
                         />
                         <ImageUploadField value={card.imageUrl} onChange={(url) => updateCard(index, 'imageUrl', url)} />
+                        <input
+                            type="text"
+                            value={card.altText}
+                            onChange={(e) => updateCard(index, 'altText', e.target.value)}
+                            placeholder="Image description, for accessibility (optional)"
+                            className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400"
+                        />
                         <input
                             type="text"
                             value={card.vibeUrl}

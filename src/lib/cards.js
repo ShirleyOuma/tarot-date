@@ -42,6 +42,7 @@ export async function updateCard(cardId, editToken, fields) {
         image_url: fields.imageUrl ?? null,
         vibe_url: fields.vibeUrl ?? null,
         unlock_at: fields.unlockAt ? new Date(fields.unlockAt).toISOString() : null,
+        alt_text: fields.altText ?? null,
     })
 
     if (error) throw error
