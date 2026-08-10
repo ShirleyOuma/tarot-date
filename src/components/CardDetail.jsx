@@ -6,7 +6,7 @@ import { isLocked, formatUnlockTime } from '../lib/locking'
 function CardDetail({ card, onBack }) {
     if (isLocked(card)) {
         return (
-            <div className="min-h-screen bg-black flex flex-col text-white p-8 gap-10 items-center justify-center text-center">
+            <div className="min-h-screen flex flex-col text-white p-8 gap-10 items-center justify-center text-center">
                 <button
                     onClick={onBack}
                     className="absolute top-8 left-8 text-white/50 hover:text-amber-400 text-xs uppercase tracking-widest border border-white/20 rounded-full px-4 py-2"
@@ -21,7 +21,7 @@ function CardDetail({ card, onBack }) {
         )
     }
     return (
-        <div className="min-h-screen bg-black flex flex-col text-white p-8 gap-10">
+        <div className="min-h-screen flex flex-col text-white p-8 gap-10">
             <button
                 onClick={onBack}
                 className="self-start text-white/50 hover:text-amber-400 text-xs uppercase font-serif tracking-widest px-4 py-2 w-fit"
