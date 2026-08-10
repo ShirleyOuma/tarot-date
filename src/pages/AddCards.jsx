@@ -67,7 +67,7 @@ function AddCards() {
     }
 
     return (
-        <div className="min-h-screen bg-black flex items-center justify-center text-white p-8">
+        <div className="min-h-screen flex items-center justify-center text-white p-8">
             <form onSubmit={handleSubmit} className="w-full max-w-lg flex flex-col gap-6">
                 <h1 className="text-3xl font-bold text-amber-400">Add your cards</h1>
 

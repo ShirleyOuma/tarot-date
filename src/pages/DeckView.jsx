@@ -49,7 +49,7 @@ function DeckView() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-black flex items-center justify-center text-white">
+            <div className="min-h-screen flex items-center justify-center text-white">
                 <p>Loading...</p>
             </div>
         )
@@ -57,7 +57,7 @@ function DeckView() {
 
     if (error) {
         return (
-            <div className="min-h-screen bg-black flex items-center justify-center text-white">
+            <div className="min-h-screen flex items-center justify-center text-white">
                 <p className="text-red-400">This deck doesn't exist or isn't published yet.</p>
             </div>
         )
@@ -68,7 +68,7 @@ function DeckView() {
     }
 
     return (
-        <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white gap-4 p-8">
+        <div className="min-h-screen flex flex-col items-center justify-center text-white gap-4 p-8">
             <h1 className="text-6xl text-red-800 italic" style={{ fontFamily: "'Caveat', cursive" }} >{deck.title}</h1>
             {deck.intro_note && <p className="text-white/70 max-w-md text-center">{deck.intro_note}</p>}
             <div className="flex flex-wrap gap-6 justify-center mt-4">

@@ -43,7 +43,7 @@ function BuilderDone() {
 
   if (status === 'publishing') {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center text-white">
+      <div className="min-h-screen flex items-center justify-center text-white">
         <p>Publishing your deck...</p>
       </div>
     )
@@ -51,7 +51,7 @@ function BuilderDone() {
 
   if (status === 'error') {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center text-white">
+      <div className="min-h-screen flex items-center justify-center text-white">
         <p className="text-red-400">{error}</p>
       </div>
     )
@@ -60,7 +60,7 @@ function BuilderDone() {
   const shareUrl = `${window.location.origin}/d/${slug}`
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white gap-4 p-8">
+    <div className="min-h-screen flex flex-col items-center justify-center text-white gap-4 p-8">
       <h1 className="text-3xl font-bold text-amber-400">Your deck is live!</h1>
       <p className="text-white/70">Share this link:</p>
       <div className="bg-white/10 rounded-lg px-4 py-3 font-mono text-sm break-all max-w-md">

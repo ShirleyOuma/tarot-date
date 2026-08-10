@@ -31,7 +31,7 @@ function CreateDeck() {
     }
 
     return (
-        <div className="min-h-screen bg-black flex items-center justify-center text-white p-8">
+        <div className="min-h-screen flex items-center justify-center text-white p-8">
             <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col gap-4">
                 <h1 className="text-3xl font-bold text-amber-400 mb-2">Create a Deck</h1>
 
