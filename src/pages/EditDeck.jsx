@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getDeckForEdit, publishDeck } from '../lib/decks'
 import { createCard, deleteCard, updateCard } from '../lib/cards'
 import ImageUploadField from '../components/ImageUploadField'
 import { getDeckForEdit, publishDeck, unpublishDeck } from '../lib/decks'
