@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { getDeckForEdit, publishDeck } from '../lib/decks'
 import { createCard, deleteCard, updateCard } from '../lib/cards'
 import ImageUploadField from '../components/ImageUploadField'
+import { getDeckForEdit, publishDeck, unpublishDeck } from '../lib/decks'
 
 
 function EditDeck() {
@@ -102,6 +103,18 @@ function EditDeck() {
         }
     }
 
+    async function handleUnpublish() {
+        const confirmed = window.confirm('Take this deck offline? The share link will stop working until you publish it again.')
+        if (!confirmed) return
+
+        try {
+            await unpublishDeck(deckId, editToken)
+            await loadDeck(editToken)
+        } catch (err) {
+            setError(err.message)
+        }
+    }
+
     function startEditing(card) {
         setEditingCardId(card.id)
         setEditForm({
@@ -146,7 +159,10 @@ function EditDeck() {
         <div className="min-h-screen text-white p-8 flex flex-col items-center gap-8 w-full">
             <div className="w-full max-w-lg flex items-center justify-between">
                 <h1 className="text-xl text-emerald-950" style={{ fontFamily: "'Sekuya', system-ui" }}>{deck.title}</h1>
-                <span className={`text-xs px-3 py-1 rounded-full ${deck.status === 'published' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-black/70 text-white/60'}`}>
+                <span className={`text-xs px-3 py-1 rounded-full ${deck.status === 'published' ? 'bg-emerald-500/20 text-emerald-400' :
+                        deck.status === 'unpublished' ? 'bg-red-500/20 text-red-300' :
+                            'bg-black/70 text-white/60'
+                    }`}>
                     {deck.status}
                 </span>
             </div>
@@ -160,6 +176,12 @@ function EditDeck() {
             {deck.status !== 'published' && (
                 <button onClick={handlePublish} className="bg-amber-400 text-black rounded-lg px-6 py-2 font-semibold">
                     Publish this deck
+                </button>
+            )}
+
+            {deck.status === 'published' && (
+                <button onClick={handleUnpublish} className="bg-white/10 text-white/70 rounded-lg px-6 py-2 font-semibold hover:bg-red-500/20 hover:text-red-300 transition-colors">
+                    Take deck offline
                 </button>
             )}
 

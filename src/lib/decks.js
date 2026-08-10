@@ -69,11 +69,21 @@ export async function publishDeck(deckId, editToken) {
 
 // Fetches a deck (draft or published) plus its cards, using edit_token to prove ownership.
 export async function getDeckForEdit(deckId, editToken) {
-  const { data, error } = await supabase.rpc('get_deck_for_edit', {
-    deck_id: deckId,
-    token: editToken,
-  })
+    const { data, error } = await supabase.rpc('get_deck_for_edit', {
+        deck_id: deckId,
+        token: editToken,
+    })
 
-  if (error) throw error
-  return data
+    if (error) throw error
+    return data
+}
+
+// Takes a published deck offline. The share link stops working immediately,
+export async function unpublishDeck(deckId, editToken) {
+    const { error } = await supabase.rpc('unpublish_deck', {
+        deck_id: deckId,
+        token: editToken,
+    })
+
+    if (error) throw error
 }
