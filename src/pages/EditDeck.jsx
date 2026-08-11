@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { createCard, deleteCard, updateCard } from '../lib/cards'
 import ImageUploadField from '../components/ImageUploadField'
 import { getDeckForEdit, publishDeck, unpublishDeck } from '../lib/decks'
+
 
 
 function EditDeck() {
@@ -159,8 +160,8 @@ function EditDeck() {
             <div className="w-full max-w-lg flex items-center justify-between">
                 <h1 className="text-xl text-emerald-950" style={{ fontFamily: "'Sekuya', system-ui" }}>{deck.title}</h1>
                 <span className={`text-xs px-3 py-1 rounded-full ${deck.status === 'published' ? 'bg-emerald-500/20 text-emerald-400' :
-                        deck.status === 'unpublished' ? 'bg-red-500/20 text-red-300' :
-                            'bg-black/70 text-white/60'
+                    deck.status === 'unpublished' ? 'bg-red-500/20 text-red-300' :
+                        'bg-black/70 text-white/60'
                     }`}>
                     {deck.status}
                 </span>
@@ -183,6 +184,13 @@ function EditDeck() {
                     Take deck offline
                 </button>
             )}
+
+            <Link
+                to={`/builder/${deckId}/insights`}
+                className="text-white/50 hover:text-amber-400 text-sm underline"
+            >
+                View insights
+            </Link>
 
             <div className="w-full max-w-lg flex flex-col gap-3">
                 <h2 className="text-xl font-semibold text-white/80">Cards ({deck.cards.length})</h2>

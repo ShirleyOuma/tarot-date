@@ -5,6 +5,7 @@ import CreateDeck from './pages/CreateDeck.jsx'
 import AddCards from './pages/AddCards.jsx'
 import BuilderDone from './pages/BuilderDone.jsx'
 import EditDeck from './pages/EditDeck.jsx'
+import DeckAnalytics from './pages/DeckAnalytics.jsx'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/builder/:deckId/cards" element={<AddCards />} />
           <Route path="/builder/:deckId/done" element={<BuilderDone />} />
           <Route path="/builder/:deckId/edit" element={<EditDeck />} />
+          <Route path="/builder/:deckId/insights" element={<DeckAnalytics />} />
         </Routes>
       </div>
     </div>

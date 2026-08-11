@@ -87,3 +87,14 @@ export async function unpublishDeck(deckId, editToken) {
 
     if (error) throw error
 }
+
+// Fetches per-card engagement stats (reveals, hearts, accepts) for a deck.
+export async function getDeckAnalytics(deckId, editToken) {
+    const { data, error } = await supabase.rpc('get_deck_analytics', {
+        deck_id: deckId,
+        token: editToken,
+    })
+
+    if (error) throw error
+    return data
+}
