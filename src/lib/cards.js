@@ -1,23 +1,31 @@
 import { supabase } from './supabaseClient'
 
-// Creates a new card under a deck. Requires the deck's edit_token to prove ownership.
 export async function createCard({ deckId, editToken, position, name, imageUrl, altText, quote, dateDescription, location, vibeUrl, unlockAt }) {
-    const { data, error } = await supabase.rpc('add_card', {
-        deck_id: deckId,
-        token: editToken,
-        card_position: position,
-        name,
-        quote: quote ?? null,
-        date_description: dateDescription ?? null,
-        location: location ?? null,
-        image_url: imageUrl ?? null,
-        alt_text: altText ?? null,
-        vibe_url: vibeUrl ?? null,
-        unlock_at: unlockAt ? new Date(unlockAt).toISOString() : null,
+    const res = await fetch('/api/add-card', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            deckId,
+            token: editToken,
+            position,
+            name,
+            quote,
+            dateDescription,
+            location,
+            imageUrl,
+            altText,
+            vibeUrl,
+            unlockAt: unlockAt ? new Date(unlockAt).toISOString() : null,
+        }),
     })
 
-    if (error) throw error
-    return data // the new card's id
+    if (!res.ok) {
+        const { error } = await res.json()
+        throw new Error(error)
+    }
+
+    const { id } = await res.json()
+    return id
 }
 
 // Deletes a card. Requires the parent deck's edit_token to prove ownership.

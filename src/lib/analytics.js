@@ -1,4 +1,4 @@
-import {supabase} from './supabaseClient';
+import { supabase } from './supabaseClient';
 import { generateUUID } from './uuid'
 
 // Returns a stable anonymous ID for this browser session, creating one if it doesn't exist yet.
@@ -12,30 +12,26 @@ function getSessionId() {
   return sessionId
 }
 
-// Logs that a specific card was revealed/opened by whoever is viewing the deck right now.
 export async function logRevealEvent({ cardId, deckId }) {
-  const { error } = await supabase
-    .from('reveal_events')
-    .insert({
-      id: generateUUID(),
-      card_id: cardId,
-      deck_id: deckId,
-      session_id: getSessionId(),
-    })
-
-  if (error) throw error
+  const res = await fetch('/api/react', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ kind: 'reveal', cardId, deckId, sessionId: getSessionId() }),
+  })
+  if (!res.ok) {
+    const { error } = await res.json()
+    throw new Error(error)
+  }
 }
 
-// Logs a reaction (heart or accepting the date) on a specific card.
 export async function logReaction({ cardId, type }) {
-  const { error } = await supabase
-    .from('reactions')
-    .insert({
-      id: generateUUID(),
-      card_id: cardId,
-      type,
-      session_id: getSessionId(),
-    })
-
-  if (error) throw error
+  const res = await fetch('/api/react', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ kind: 'reaction', cardId, type, sessionId: getSessionId() }),
+  })
+  if (!res.ok) {
+    const { error } = await res.json()
+    throw new Error(error)
+  }
 }
