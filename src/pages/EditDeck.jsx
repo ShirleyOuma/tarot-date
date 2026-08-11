@@ -173,24 +173,26 @@ function EditDeck() {
                 </div>
             )}
 
-            {deck.status !== 'published' && (
-                <button onClick={handlePublish} className="bg-amber-400 text-black rounded-lg px-6 py-2 font-semibold">
-                    Publish this deck
-                </button>
-            )}
+            <div className="flex items-center gap-4">
+                {deck.status !== 'published' && (
+                    <button onClick={handlePublish} className="bg-amber-900 text-black rounded-lg px-6 py-2 font-semibold">
+                        Publish this deck
+                    </button>
+                )}
 
-            {deck.status === 'published' && (
-                <button onClick={handleUnpublish} className="bg-white/10 text-white/70 rounded-lg px-6 py-2 font-semibold hover:bg-red-500/20 hover:text-red-300 transition-colors">
-                    Take deck offline
-                </button>
-            )}
+                {deck.status === 'published' && (
+                    <button onClick={handleUnpublish} className="bg-white/10 text-white/70 rounded-lg px-6 py-2 font-semibold hover:bg-red-500/20 hover:text-red-300 transition-colors">
+                        Take deck offline
+                    </button>
+                )}
 
-            <Link
-                to={`/builder/${deckId}/insights`}
-                className="text-white/50 hover:text-amber-400 text-sm underline"
-            >
-                View insights
-            </Link>
+                <Link
+                    to={`/builder/${deckId}/insights`}
+                    className="text-white/50 hover:text-amber-400 text-sm underline"
+                >
+                    View insights
+                </Link>
+            </div>
 
             <div className="w-full max-w-lg flex flex-col gap-3">
                 <h2 className="text-xl font-semibold text-white/80">Cards ({deck.cards.length})</h2>
@@ -245,10 +247,10 @@ function EditDeck() {
                                 />
                             </label>
                             <div className="flex gap-2 mt-1">
-                                <button onClick={() => handleSaveEdit(card.id)} className="bg-amber-400 text-black rounded-lg px-4 py-2 text-sm font-semibold">
+                                <button onClick={() => handleSaveEdit(card.id)} className="bg-blue-600 text-black rounded-lg px-4 py-2 text-sm font-semibold">
                                     Save
                                 </button>
-                                <button onClick={() => setEditingCardId(null)} className="text-white/50 text-sm hover:text-white">
+                                <button onClick={() => setEditingCardId(null)} className="text-red-600 text-sm hover:text-white">
                                     Cancel
                                 </button>
                             </div>
@@ -260,7 +262,7 @@ function EditDeck() {
                                 {card.date_description && <p className="text-md text-white">{card.date_description}</p>}
                             </div>
                             <div className="flex gap-2">
-                                <button onClick={() => startEditing(card)} className="text-amber-400 text-xs px-3 py-1.5 rounded-full bg-amber-400/10 hover:bg-amber-400/20 transition-colors">
+                                <button onClick={() => startEditing(card)} className="text-blue-600 text-xs px-3 py-1.5 rounded-full bg-amber-400/10 hover:bg-amber-400/20 transition-colors">
                                     Edit
                                 </button>
                                 <button onClick={() => handleDeleteCard(card.id, card.name)} className="text-red-400 text-xs px-3 py-1.5 rounded-full bg-red-500/10 hover:bg-red-500/20 transition-colors">
@@ -290,7 +292,7 @@ function EditDeck() {
                         className="bg-black/70 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400"
                     />
                 </label>
-                <button type="submit" disabled={saving} className="bg-amber-400 text-black rounded-lg px-6 py-2 font-semibold disabled:opacity-50">
+                <button type="submit" disabled={saving} className="bg-amber-900 text-black rounded-lg px-6 py-2 font-semibold disabled:opacity-50">
                     {saving ? 'Adding...' : 'Add card'}
                 </button>
             </form>
