@@ -146,9 +146,7 @@ function VibePlayer({ url }) {
 
     return (
         <div className="flex items-center gap-3 bg-[#C9BEFF] font-extrabold border-white/10 rounded-[60%_40%_60%_40%/40%_60%_40%_60%] px-2 py-2 w-fit">
-            <div style={{ position: 'absolute', top: 0, left: '-9999px', width: 1, height: 1, overflow: 'hidden' }}>
-                <div ref={containerRef} />
-            </div>
+            <div ref={containerRef} />
 
             <button
                 onClick={toggle}
