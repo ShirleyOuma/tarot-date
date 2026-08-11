@@ -71,7 +71,7 @@ function DeckView() {
         <div className="min-h-screen flex flex-col items-center justify-center text-white gap-4 p-8">
             <h1 className="text-6xl text-red-800 italic" style={{ fontFamily: "'Caveat', cursive" }} >{deck.title}</h1>
             {deck.intro_note && <p className="text-white/70 max-w-md text-center">{deck.intro_note}</p>}
-            <div className="flex flex-wrap gap-6 justify-center mt-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 justify-items-center max-w-2xl mx-auto mt-4">
                 {deck.cards.map((card) => (
                     <TarotCard key={card.id} card={card} onSelect={handleSelectCard} />
                 ))}
