@@ -16,7 +16,6 @@ function generateEditToken() {
     return generateUUID()
 }
 
-// Creates a new draft deck. Returns the new deck row, including its edit_token.
 export async function createDeck({ title, introNote, theme }) {
     const newDeck = {
         id: generateUUID(),
@@ -28,11 +27,17 @@ export async function createDeck({ title, introNote, theme }) {
         status: 'draft',
     }
 
-    const { error } = await supabase
-        .from('decks')
-        .insert(newDeck)
+    const res = await fetch('/api/create-deck', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newDeck),
+    })
 
-    if (error) throw error
+    if (!res.ok) {
+        const { error } = await res.json()
+        throw new Error(error)
+    }
+
     return newDeck
 }
 
@@ -98,3 +103,4 @@ export async function getDeckAnalytics(deckId, editToken) {
     if (error) throw error
     return data
 }
+
