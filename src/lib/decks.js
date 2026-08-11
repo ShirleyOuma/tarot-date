@@ -16,7 +16,7 @@ function generateEditToken() {
     return generateUUID()
 }
 
-export async function createDeck({ title, introNote, theme }) {
+export async function createDeck({ title, introNote, theme, creatorEmail }) {
     const newDeck = {
         id: generateUUID(),
         slug: generateSlug(),
@@ -25,6 +25,7 @@ export async function createDeck({ title, introNote, theme }) {
         intro_note: introNote,
         theme,
         status: 'draft',
+        creator_email: creatorEmail || null,
     }
 
     const res = await fetch('/api/create-deck', {

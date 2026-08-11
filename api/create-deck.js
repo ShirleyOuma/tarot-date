@@ -16,9 +16,9 @@ export default async function handler(req, res) {
         return res.status(429).json({ error: 'Too many decks created recently. Please try again later.' })
     }
 
-    const { id, slug, edit_token, title, intro_note, theme, status } = req.body
+    const { id, slug, edit_token, title, intro_note, theme, status, creator_email } = req.body
 
-    const { error } = await supabase.from('decks').insert({ id, slug, edit_token, title, intro_note, theme, status })
+    const { error } = await supabase.from('decks').insert({ id, slug, edit_token, title, intro_note, theme, status, creator_email: creator_email || null })
 
     if (error) {
         return res.status(400).json({ error: error.message })

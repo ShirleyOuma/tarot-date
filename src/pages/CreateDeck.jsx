@@ -8,6 +8,7 @@ function CreateDeck() {
     const [introNote, setIntroNote] = useState('')
     const [submitting, setSubmitting] = useState(false)
     const [error, setError] = useState(null)
+    const [creatorEmail, setCreatorEmail] = useState('')
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -20,7 +21,7 @@ function CreateDeck() {
         setError(null)
 
         try {
-            const deck = await createDeck({ title, introNote, theme: 'default' })
+            const deck = await createDeck({ title, introNote, theme: 'default', creatorEmail })
             localStorage.setItem(`edit_token_${deck.id}`, deck.edit_token)
             navigate(`/builder/${deck.id}/cards`)
         } catch (err) {
@@ -54,6 +55,16 @@ function CreateDeck() {
                         placeholder="A little message they'll see before they start flipping cards"
                         className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400 resize-none"
                         rows={3}
+                    />
+                </label>
+                <label className="flex flex-col gap-1">
+                    <span className="text-sm text-white/70">Your email (optional)</span>
+                    <input
+                        type="email"
+                        value={creatorEmail}
+                        onChange={(e) => setCreatorEmail(e.target.value)}
+                        placeholder="So we can notify you when they react"
+                        className="bg-white/10 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-amber-400"
                     />
                 </label>
 
