@@ -145,16 +145,15 @@ function VibePlayer({ url }) {
     }
 
     return (
-        <div className="relative" style={{ width: 300, height: 166 }}>
-            <div ref={containerRef} className="absolute inset-0" />
+        <div className="flex items-center gap-3 bg-[#C9BEFF] font-extrabold border-white/10 rounded-[60%_40%_60%_40%/40%_60%_40%_60%] px-2 py-2 w-fit">
+            <div style={{ width: 1, height: 1, overflow: 'hidden' }}>
+                <div ref={containerRef} />
+            </div>
 
-            <div className="absolute inset-0 bg-black flex items-center justify-center gap-3 rounded-xl overflow-hidden">
-                <div className="flex items-center gap-3 bg-[#C9BEFF] font-extrabold border-white/10 rounded-[60%_40%_60%_40%/40%_60%_40%_60%] px-2 py-2 w-fit">
-
-                    <button
-                        onClick={toggle}
-                        disabled={!ready}
-                        className="
+            <button
+                onClick={toggle}
+                disabled={!ready}
+                className="
       relative overflow-hidden inline-flex items-center justify-center 
       w-30 h-10 px-3 
       bg-[#15ccbe] text-white text-[14px] uppercase text-center font-normal tracking-[1px] font-['Istok_Web'] [text-shadow:0_1px_0_rgba(0,0,0,0.3)]
@@ -165,20 +164,18 @@ function VibePlayer({ url }) {
       active:translate-y-0.75 
       active:[box-shadow:inset_0_16px_2px_-15px_rgba(0,0,0,0),_inset_0_0_0_1px_rgba(255,255,255,0.15),_inset_0_1px_20px_rgba(0,0,0,0.1),_0_0_0_#0f988e,0_0_0_2px_rgba(255,255,255,0.5),_0_0_0_rgba(0,0,0,0),_0_0_0_rgba(0,0,0,0)]
     "
-                    >
-                        <span className="mr-2 text-xs transition-all duration-500 ease-in-out group-hover:translate-x-5.75">
-                            {playing ? '❚❚' : '▶'}
-                        </span>
-                        <span className="text-xs transition-all duration-500 ease-in-out group-hover:translate-x-20 whitespace-nowrap">
-                            {playing ? 'Pause' : 'Play'}
-                        </span>
-                    </button>
+            >
+                <span className="mr-2 text-xs transition-all duration-500 ease-in-out group-hover:translate-x-5.75">
+                    {playing ? '❚❚' : '▶'}
+                </span>
+                <span className="text-xs transition-all duration-500 ease-in-out group-hover:translate-x-20 whitespace-nowrap">
+                    {playing ? 'Pause' : 'Play'}
+                </span>
+            </button>
 
-                    <span className="text-xs text-white/60">
-                        {playing ? 'Vibe playing' : ready ? 'Play the vibe' : 'Loading vibe...'}
-                    </span>
-                </div>
-            </div>
+            <span className="text-xs text-white/60">
+                {playing ? 'Vibe playing' : ready ? 'Play the vibe' : 'Loading vibe...'}
+            </span>
         </div>
     )
 }
