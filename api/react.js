@@ -48,12 +48,18 @@ export default async function handler(req, res) {
 
                 if (deck?.creator_email) {
                     const action = type === 'heart' ? 'hearted' : 'accepted the date on'
-                    await resend.emails.send({
+                    const { data: emailData, error: emailError } = await resend.emails.send({
                         from: 'TarotDate <onboarding@resend.dev>',
                         to: deck.creator_email,
                         subject: `Someone ${action} "${card.name}"! 💌`,
                         html: `<p>Good news — someone just ${action} <strong>${card.name}</strong> in your deck "<strong>${deck.title}</strong>".</p>`,
                     })
+
+                    if (emailError) {
+                        console.error('Resend rejected the email:', emailError)
+                    } else {
+                        console.log('Email sent successfully:', emailData)
+                    }
                 }
             }
         } catch (emailErr) {
