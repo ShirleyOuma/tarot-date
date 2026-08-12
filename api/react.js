@@ -37,9 +37,15 @@ export default async function handler(req, res) {
 
         // Notify the creator, if they gave an email — failures here shouldn't break the reaction itself
         try {
-            const { data: card } = await supabase.from('cards').select('name, deck_id').eq('id', cardId).single()
+            const { data: card, error: cardError } = await supabase.from('cards').select('name, deck_id').eq('id', cardId).single()
+            if (cardError) console.error('Email step: failed to fetch card', cardError)
+
             if (card) {
-                const { data: deck } = await supabase.from('decks').select('title, creator_email').eq('id', card.deck_id).single()
+                const { data: deck, error: deckError } = await supabase.from('decks').select('title, creator_email').eq('id', card.deck_id).single()
+                if (deckError) console.error('Email step: failed to fetch deck', deckError)
+
+                console.log('Email step: deck lookup result', deck)
+
                 if (deck?.creator_email) {
                     const action = type === 'heart' ? 'hearted' : 'accepted the date on'
                     await resend.emails.send({
